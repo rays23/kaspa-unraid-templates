@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Kaspa-Monitor-Server</Name>
+  <Repository>rays23/kaspa-monitor-server:latest</Repository>
+  <Registry>https://hub.docker.com/r/rays23/kaspa-monitor-server</Registry>
+  <Network>host</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/topic/XXXXX-support-kaspa-node-monitor/</Support>
+  <Project>https://github.com/imalfect/KaspaNodeMonitor</Project>
+  <Overview>Backend-Server fuer den Kaspa Node Monitor. Verbindet sich via gRPC mit dem Kaspa-Node und stellt Echtzeit-Daten per WebSocket fuer das Dashboard bereit.[br][br]Voraussetzung: Ein laufender Kaspa-Node Container mit freigegebenem gRPC-Port (16110) und dem Parameter --rpclisten=0.0.0.0:16110.[br][br]Verwendet Host-Netzwerk fuer zuverlaessige gRPC-Kommunikation mit dem Kaspa-Node. Der WebSocket-Server lauscht auf Port 8124.</Overview>
+  <Category>Crypto</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/rays23/kaspa-unraid-templates/main/templates/kaspa-monitor-server.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/rays23/kaspa-unraid-templates/main/icons/kaspa-monitor-icon.png</Icon>
+  <ExtraParams>--restart unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <Date>2026-02-14</Date>
+  <Networking>
+    <Mode>host</Mode>
+  </Networking>
+  <Data/>
+  <Environment>
+    <Variable>
+      <Value>127.0.0.1:16110</Value>
+      <Name>NODE_URL</Name>
+    </Variable>
+    <Variable>
+      <Value>8124</Value>
+      <Name>PORT</Name>
+    </Variable>
+    <Variable>
+      <Value>0.0.0.0</Value>
+      <Name>HOST</Name>
+    </Variable>
+    <Variable>
+      <Value>false</Value>
+      <Name>SERVE_FRONTEND</Name>
+    </Variable>
+    <Variable>
+      <Value>true</Value>
+      <Name>ALLOW_SERVER_INFORMATION</Name>
+    </Variable>
+    <Variable>
+      <Value>Unraid</Value>
+      <Name>LOCATION</Name>
+    </Variable>
+    <Variable>
+      <Value>info</Value>
+      <Name>LOG_LEVEL</Name>
+    </Variable>
+    <Variable>
+      <Value>kaspa-node</Value>
+      <Name>SERVER_INFORMATION_HOSTNAME</Name>
+    </Variable>
+  </Environment>
+  <Config Name="Node URL" Target="NODE_URL" Default="127.0.0.1:16110" Mode="" Description="gRPC-Adresse des Kaspa-Nodes (IP:Port). Bei Host-Netzwerk: 127.0.0.1:16110. Bei externer Node-IP die entsprechende Adresse eintragen." Type="Variable" Display="always" Required="true" Mask="false">127.0.0.1:16110</Config>
+  <Config Name="Server Port" Target="PORT" Default="8124" Mode="" Description="Port fuer die WebSocket-API. Wird vom Client-Dashboard verwendet." Type="Variable" Display="always" Required="true" Mask="false">8124</Config>
+  <Config Name="Bind Address" Target="HOST" Default="0.0.0.0" Mode="" Description="Bind-Adresse des Servers. 0.0.0.0 = alle Interfaces." Type="Variable" Display="advanced" Required="false" Mask="false">0.0.0.0</Config>
+  <Config Name="Serve Frontend" Target="SERVE_FRONTEND" Default="false" Mode="" Description="Frontend direkt vom Server ausliefern (false = separater Client-Container empfohlen)." Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Server Information" Target="ALLOW_SERVER_INFORMATION" Default="true" Mode="" Description="Server-Informationen (Hostname, Location) im Dashboard anzeigen." Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+  <Config Name="Location Label" Target="LOCATION" Default="Unraid" Mode="" Description="Standort-Label, das im Dashboard angezeigt wird." Type="Variable" Display="always" Required="false" Mask="false">Unraid</Config>
+  <Config Name="Log Level" Target="LOG_LEVEL" Default="info" Mode="" Description="Logging-Level: info, debug, error." Type="Variable" Display="advanced" Required="false" Mask="false">info</Config>
+  <Config Name="Hostname Label" Target="SERVER_INFORMATION_HOSTNAME" Default="kaspa-node" Mode="" Description="Hostname-Anzeige im Dashboard." Type="Variable" Display="advanced" Required="false" Mask="false">kaspa-node</Config>
+</Container>
