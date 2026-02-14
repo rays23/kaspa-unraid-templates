@@ -2,7 +2,7 @@
 
 Unraid Docker Templates for running a **Kaspa Full-Node** (rusty-kaspad) with the **KaspaNodeMonitor** web dashboard.
 
-![Kaspa](icons/kaspa-banner.png)
+<img src="icons/kaspa-node-icon.png" alt="Kaspa" width="64" height="64" />
 
 ## What's Included
 
