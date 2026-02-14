@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Maintainer>
+  <Icon>https://raw.githubusercontent.com/rays23/kaspa-unraid-templates/main/icons/kaspa-banner.png</Icon>
+  <Profile>Kaspa Node and Monitoring templates for Unraid. Running rusty-kaspad with KaspaNodeMonitor dashboard.</Profile>
+  <Forum>https://forums.unraid.net/profile/rays23/</Forum>
+  <!-- <DonateLink></DonateLink> -->
+  <!-- <DonateText>If you find these templates useful, consider donating.</DonateText> -->
+  <WebPage>https://github.com/rays23/kaspa-unraid-templates</WebPage>
+</Maintainer>
