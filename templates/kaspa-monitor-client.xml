@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Kaspa-Monitor-Client</Name>
+  <Repository>rays23/kaspa-monitor-client:latest</Repository>
+  <Registry>https://hub.docker.com/r/rays23/kaspa-monitor-client</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/topic/XXXXX-support-kaspa-node-monitor/</Support>
+  <Project>https://github.com/imalfect/KaspaNodeMonitor</Project>
+  <Overview>Web-Dashboard fuer den Kaspa Node Monitor. Zeigt Echtzeit-Daten wie Blockcount, Peers, Hashrate, DAG-Informationen und Node-Status in einem modernen Dark-Theme.[br][br]Voraussetzung: Ein laufender Kaspa-Monitor-Server Container.[br][br]Nach der Installation muss die Datei config.json angepasst werden: Die WebSocket-URL (wsApiURL) muss auf die IP des Unraid-Servers zeigen, z.B. ws://192.168.178.39:8124/ws</Overview>
+  <Category>Crypto</Category>
+  <WebUI>http://[IP]:[PORT:2989]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/rays23/kaspa-unraid-templates/main/templates/kaspa-monitor-client.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/rays23/kaspa-unraid-templates/main/icons/kaspa-monitor-icon.png</Icon>
+  <ExtraParams>--restart unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <Date>2026-02-14</Date>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>2989</HostPort>
+        <ContainerPort>80</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/kaspa-monitor/client/config.json</HostDir>
+      <ContainerDir>/usr/share/nginx/html/config.json</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment/>
+  <Config Name="Dashboard Port" Target="80" Default="2989" Mode="tcp" Description="Port fuer das Web-Dashboard. Standard: 2989." Type="Port" Display="always" Required="true" Mask="false">2989</Config>
+  <Config Name="Client Config" Target="/usr/share/nginx/html/config.json" Default="/mnt/user/appdata/kaspa-monitor/client/config.json" Mode="rw" Description="Dashboard-Konfiguration (config.json). Enthaelt WebSocket-URL, Theme und Willkommenstext. Muss nach der Erstinstallation angepasst werden." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/kaspa-monitor/client/config.json</Config>
+</Container>
