@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Kaspa-Node</Name>
+  <Repository>kaspanet/rusty-kaspad:latest</Repository>
+  <Registry>https://hub.docker.com/r/kaspanet/rusty-kaspad</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/topic/XXXXX-support-kaspa-node-monitor/</Support>
+  <Project>https://github.com/kaspanet/rusty-kaspa</Project>
+  <Overview>Kaspa Full-Node (rusty-kaspad) — die offizielle Rust-Implementierung des Kaspa-Netzwerks.[br][br]Features: UTXO-Index, gRPC-API (Port 16110), wRPC-API (Ports 17110/18110), P2P-Netzwerk (Port 16111).[br][br]WICHTIG: Der Parameter --rpclisten=0.0.0.0:16110 ist bereits im Template enthalten und erforderlich, damit gRPC-basierte Monitoring-Tools (wie Kaspa-Monitor-Server) von ausserhalb des Containers zugreifen koennen.[br][br]Die initiale Blockchain-Synchronisation (IBD) dauert mehrere Stunden und benoetigt ca. 20-50 GB Speicherplatz.</Overview>
+  <Category>Crypto</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/rays23/kaspa-unraid-templates/main/templates/kaspa-node.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/rays23/kaspa-unraid-templates/main/icons/kaspa-node-icon.png</Icon>
+  <ExtraParams>--restart unless-stopped</ExtraParams>
+  <PostArgs>kaspad --utxoindex --disable-upnp --maxinpeers=64 --outpeers=32 --yes --rpclisten=0.0.0.0:16110</PostArgs>
+  <CPUset/>
+  <Date>2026-02-14</Date>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>16110</HostPort>
+        <ContainerPort>16110</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>16111</HostPort>
+        <ContainerPort>16111</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>17110</HostPort>
+        <ContainerPort>17110</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>18110</HostPort>
+        <ContainerPort>18110</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/kaspa</HostDir>
+      <ContainerDir>/app/data</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment/>
+  <Config Name="gRPC Port" Target="16110" Default="16110" Mode="tcp" Description="gRPC API Port — wird vom Kaspa-Monitor-Server fuer die Verbindung zum Node verwendet." Type="Port" Display="always" Required="true" Mask="false">16110</Config>
+  <Config Name="P2P Port" Target="16111" Default="16111" Mode="tcp" Description="Peer-to-Peer Netzwerk-Port fuer die Kommunikation mit anderen Kaspa-Nodes." Type="Port" Display="always" Required="true" Mask="false">16111</Config>
+  <Config Name="wRPC Borsh Port" Target="17110" Default="17110" Mode="tcp" Description="wRPC Port mit Borsh-Encoding — fuer WASM-basierte Clients." Type="Port" Display="advanced" Required="false" Mask="false">17110</Config>
+  <Config Name="wRPC JSON Port" Target="18110" Default="18110" Mode="tcp" Description="wRPC JSON Port — fuer alternatives Monitoring und Browser-basierte Tools." Type="Port" Display="advanced" Required="false" Mask="false">18110</Config>
+  <Config Name="Kaspa Data" Target="/app/data" Default="/mnt/user/appdata/kaspa" Mode="rw" Description="Blockchain-Daten und Konfiguration. Benoetigt ca. 20-50 GB Speicherplatz." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/kaspa</Config>
+</Container>
